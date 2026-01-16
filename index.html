@@ -13,6 +13,7 @@ body {
   font-family: "Courier New", monospace;
   font-size: 18px;
   line-height: 1.4;
+  /* Removido o min-height fixo para permitir o scroll natural */
 }
 
 #start {
@@ -32,12 +33,13 @@ body {
   border: none;
   font-weight: bold;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 #boot {
   padding: 20px;
   white-space: pre-wrap;
-  min-height: 100vh;
+  word-wrap: break-word;
 }
 
 #cursor {
@@ -128,8 +130,7 @@ Destino: TUDO SAPA
 
 ID: TEST_USER.N4N4
 > Classe: Nativa com Upgrade Lésbico.
-> Especialização: 
-  Música / Agitação Cultural / Lubrificação e Manuseio de Fluidos / Mapeamento Térmico / Testagem de Vibrações e Sucções
+> Especialização: Música / Agitação Cultural / Lubrificação e Manuseio de Fluidos / Mapeamento Térmico / Testagem de Vibrações e Sucções
 > Estado: Operando acima dos limites recomendados. Risco de superaquecimento.
 Overclocking em Zonas de Alta Sensibilidade.
   
@@ -224,7 +225,7 @@ Iniciando shell do sistema...
 `;
 
 let i = 0;
-const speed = 20; // VELOCIDADE DO BOOT
+const speed = 25; 
 const textEl = document.getElementById("text");
 
 function startSystem() {
@@ -242,12 +243,18 @@ function typeWriter() {
   if (i < content.length) {
     textEl.textContent += content.charAt(i);
     i++;
+    
+    // A MÁGICA ACONTECE AQUI: Faz a janela rolar para o fundo a cada letra
+    window.scrollTo(0, document.body.scrollHeight);
+
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
     setTimeout(typeWriter, speed);
   } else {
     setTimeout(() => {
       document.getElementById("boot").style.display = "none";
       document.getElementById("main").style.display = "block";
+      // Rola para o topo quando o menu principal aparecer
+      window.scrollTo(0, 0);
       if (navigator.vibrate) navigator.vibrate([100,100,300]);
     }, 600);
   }
