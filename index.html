@@ -32,6 +32,7 @@ body {
   border: none;
   font-weight: bold;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 #boot {
@@ -218,8 +219,12 @@ Iniciando shell do sistema...
 `;
 
 let i = 0;
-const speed = 15; // velocidade ajustada para 15ms
+const speed = 15; // velocidade de digitação
 const textEl = document.getElementById("text");
+let userScrolled = false;
+
+// Detecta rolagem manual do usuário
+window.addEventListener('scroll', () => { userScrolled = true; });
 
 // Inicializa Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -236,7 +241,7 @@ function playBootSound() {
   osc.stop(audioCtx.currentTime + 0.25);
 }
 
-// Som robótico curto (modem futurista)
+// Som robótico curto
 function playRobotSound() {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
@@ -254,7 +259,7 @@ function startSystem() {
   // Som de boot
   playBootSound();
 
-  // Pequeno delay para som robótico inicial
+  // Pequeno delay e som robótico inicial
   setTimeout(() => playRobotSound(), 300);
 
   if (navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
@@ -265,7 +270,12 @@ function typeWriter() {
   if (i < content.length) {
     textEl.textContent += content.charAt(i);
     i++;
+
+    // Auto-scroll suave só se o usuário não rolou manualmente
+    if (!userScrolled) window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
+
     setTimeout(typeWriter, speed);
   } else {
     setTimeout(() => {
