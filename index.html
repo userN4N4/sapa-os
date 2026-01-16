@@ -35,10 +35,10 @@
   <button id="btnInit">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<!-- Audios com fontes alternativas mais estáveis -->
-<audio id="bootSound" src="https://assets.mixkit.co"></audio>
-<audio id="modemSound" src="https://www.soundjay.com"></audio>
-<audio id="keySound" src="https://www.soundjay.com"></audio>
+<!-- Audios com links diretos funcionais -->
+<audio id="bootSound" src="https://raw.githubusercontent.com"></audio>
+<audio id="modemSound" src="https://www.soundboard.com"></audio>
+<audio id="keySound" src="https://cdn.pixabay.com"></audio>
 
 <div id="terminal"><span id="text"></span><span id="cursor">_</span></div>
 
@@ -71,31 +71,27 @@ Especialização: Música / Agitação Cultural.
 Selecione uma interface:`;
 
 let i = 0;
-const speed = 40; 
+const speed = 45; 
 const textEl = document.getElementById("text");
 const bootSound = document.getElementById("bootSound");
 const modemSound = document.getElementById("modemSound");
 const keySound = document.getElementById("keySound");
-let isAutoScrolling = true;
 
-// Evento de clique unificado para destravar áudio no navegador
 document.getElementById("btnInit").addEventListener("click", function() {
   document.getElementById("start").style.display = "none";
   
-  // "Acorda" os áudios
+  // Volume e Play inicial
+  bootSound.volume = 0.5;
   bootSound.play();
-  modemSound.load();
-  keySound.load();
 
+  // O modem começa logo após o boot
   setTimeout(() => {
+    modemSound.volume = 0.3;
     modemSound.play();
-    setTimeout(typeWriter, 2500); 
-  }, 1000);
-});
+  }, 500);
 
-window.addEventListener('scroll', () => {
-  const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-  isAutoScrolling = isAtBottom;
+  // Começa a digitar após um pequeno delay do modem
+  setTimeout(typeWriter, 2000); 
 });
 
 function typeWriter() {
@@ -104,17 +100,14 @@ function typeWriter() {
     textEl.textContent += char;
     i++;
 
-    // Toca som de tecla clonando o áudio (permite sobreposição rápida)
+    // Som de tecla (apenas para letras e números)
     if (char !== " " && char !== "\n") {
       let soundClone = keySound.cloneNode();
-      soundClone.volume = 0.15;
+      soundClone.volume = 0.1;
       soundClone.play().catch(() => {});
     }
 
-    if (isAutoScrolling) {
-      window.scrollTo(0, document.body.scrollHeight);
-    }
-
+    window.scrollTo(0, document.body.scrollHeight);
     setTimeout(typeWriter, speed);
   } else {
     document.getElementById("buttons").style.display = "block";
