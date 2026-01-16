@@ -32,13 +32,12 @@
 <body>
 
 <div id="start">
-  <button onclick="startSystem()">INICIALIZAR PROTOCOLO SAPA</button>
+  <button id="btnInit">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<!-- Sons do Sistema -->
-<audio id="bootSound" src="https://actions.google.com"></audio>
-<audio id="modemSound" src="https://actions.google.com"></audio>
-<!-- Som de Teclado (Curto e seco para repetição rápida) -->
+<!-- Audios com fontes alternativas mais estáveis -->
+<audio id="bootSound" src="https://assets.mixkit.co"></audio>
+<audio id="modemSound" src="https://www.soundjay.com"></audio>
 <audio id="keySound" src="https://www.soundjay.com"></audio>
 
 <div id="terminal"><span id="text"></span><span id="cursor">_</span></div>
@@ -72,26 +71,32 @@ Especialização: Música / Agitação Cultural.
 Selecione uma interface:`;
 
 let i = 0;
-const speed = 35; // Um pouco mais lento para o som acompanhar melhor
+const speed = 40; 
 const textEl = document.getElementById("text");
+const bootSound = document.getElementById("bootSound");
+const modemSound = document.getElementById("modemSound");
 const keySound = document.getElementById("keySound");
 let isAutoScrolling = true;
 
-// Monitora o scroll do usuário
-window.addEventListener('wheel', () => {
-  const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-  isAutoScrolling = isAtBottom;
+// Evento de clique unificado para destravar áudio no navegador
+document.getElementById("btnInit").addEventListener("click", function() {
+  document.getElementById("start").style.display = "none";
+  
+  // "Acorda" os áudios
+  bootSound.play();
+  modemSound.load();
+  keySound.load();
+
+  setTimeout(() => {
+    modemSound.play();
+    setTimeout(typeWriter, 2500); 
+  }, 1000);
 });
 
-function startSystem() {
-  document.getElementById("start").style.display = "none";
-  document.getElementById("bootSound").play();
-  
-  setTimeout(() => {
-    document.getElementById("modemSound").play();
-    setTimeout(typeWriter, 2000); // Começa a digitar após o som do modem
-  }, 1000);
-}
+window.addEventListener('scroll', () => {
+  const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+  isAutoScrolling = isAtBottom;
+});
 
 function typeWriter() {
   if (i < fullContent.length) {
@@ -99,11 +104,11 @@ function typeWriter() {
     textEl.textContent += char;
     i++;
 
-    // Toca o som da tecla (exceto para espaços e quebras de linha)
+    // Toca som de tecla clonando o áudio (permite sobreposição rápida)
     if (char !== " " && char !== "\n") {
-      keySound.currentTime = 0; // Reinicia o áudio para permitir repetição rápida
-      keySound.volume = 0.2;    // Volume baixo para não incomodar
-      keySound.play().catch(() => {}); // Evita erro de browser
+      let soundClone = keySound.cloneNode();
+      soundClone.volume = 0.15;
+      soundClone.play().catch(() => {});
     }
 
     if (isAutoScrolling) {
