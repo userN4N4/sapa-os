@@ -4,86 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAPA.OS</title>
-
 <style>
-body {
-  margin: 0;
-  background: black;
-  color: #00ff66;
-  font-family: "Courier New", monospace;
-  font-size: 18px;
-  line-height: 1.4;
-  /* Removido o min-height fixo para permitir o scroll natural */
-}
-
-#start {
-  position: fixed;
-  inset: 0;
-  background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-#start button {
-  font-size: 20px;
-  padding: 20px 26px;
-  background: #00ff66;
-  border: none;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-#boot {
-  padding: 20px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-#cursor {
-  display: inline-block;
-  width: 10px;
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-#main {
-  display: none;
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  white-space: pre-wrap;
-}
-
-hr {
-  border: none;
-  border-top: 1px solid #00ff66;
-  margin: 20px 0;
-}
-
-.button {
-  display: block;
-  margin: 16px 0;
-  padding: 16px;
-  border: 1px solid #00ff66;
-  color: #00ff66;
-  background: black;
-  text-decoration: none;
-  text-align: center;
-  font-size: 18px;
-}
-
-.button:active {
-  background: #00ff66;
-  color: black;
-}
+  body {
+    margin: 0; background: black; color: #00ff66;
+    font-family: "Courier New", monospace; font-size: 18px; line-height: 1.4;
+  }
+  #start {
+    position: fixed; inset: 0; background: black;
+    display: flex; align-items: center; justify-content: center; z-index: 9999;
+  }
+  #start button {
+    font-size: 20px; padding: 20px 26px; background: #00ff66;
+    border: none; font-weight: bold; text-transform: uppercase; cursor: pointer;
+  }
+  #terminal { padding: 20px; white-space: pre-wrap; word-wrap: break-word; padding-bottom: 50px; }
+  #cursor { display: inline-block; width: 10px; animation: blink 1s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+  #buttons { display: none; max-width: 900px; margin: 0 auto; padding: 0 20px 50px 20px; }
+  .button {
+    display: block; margin: 16px 0; padding: 16px;
+    border: 1px solid #00ff66; color: #00ff66; background: black;
+    text-decoration: none; text-align: center; font-size: 18px;
+  }
+  .button:active { background: #00ff66; color: black; }
 </style>
 </head>
 <body>
@@ -92,178 +35,88 @@ hr {
   <button onclick="startSystem()">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<audio id="bootSound" preload="auto">
-  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
-</audio>
+<!-- Sons do Sistema -->
+<audio id="bootSound" src="https://actions.google.com"></audio>
+<audio id="modemSound" src="https://actions.google.com"></audio>
+<!-- Som de Teclado (Curto e seco para repetição rápida) -->
+<audio id="keySound" src="https://www.soundjay.com"></audio>
 
-<audio id="modemSound" preload="auto">
-  <source src="https://actions.google.com/sounds/v1/ambiences/modem_dialing.ogg">
-</audio>
-
-<div id="boot"><span id="text"></span><span id="cursor">_</span></div>
-
-<div id="main">
-SAPA.OS v6.8.6
-LOCALIZAÇÃO: CURITIBA-DELTA
-SINCRONIZAÇÃO: PARCIAL
-MODO: MIGRAÇÃO
-IDIOMA: [Sincronizando línguas] AJUSTE DE UMIDADE NECESSÁRIO
-
-----------------------------------------
-
-[ STATUS DO SISTEMA SAPA.OS]
-
-[ OK ] Tudo_sapa.exe carregado
-[ OK ] Update de Firmware: Expansão do Vocabulário Sensorial
-[ OK ] Protocolos de Corpo Livre ativos
-[ OK ] Módulo de Safadeza Sapatônica em execução
-[ OK ] Interfaces com Mundo Legado em modo compatibilidade
-[ OK ] Processo de extinção da heteronormatividade em curso
-[ OK ] Subsistema binário marcado para descontinuação
-
-Índice global de convergência: 69% (loading...)
-Destino: TUDO SAPA
-
-----------------------------------------
-
-[ PERFIL DE USUÁRIA ]
-
-ID: TEST_USER.N4N4
-> Classe: Nativa com Upgrade Lésbico.
-> Especialização: Música / Agitação Cultural / Lubrificação e Manuseio de Fluidos / Mapeamento Térmico / Testagem de Vibrações e Sucções
-> Estado: Operando acima dos limites recomendados. Risco de superaquecimento.
-Overclocking em Zonas de Alta Sensibilidade.
-  
-> Permissões:
-- Leitura e escrita em camadas históricas
-- Instalação de pacotes simbólicos e comportamentais
-- Ativação de zonas temporárias de realidade alternativa
-- Propagação memética de alta contaminação afetiva
-
-> Nota do sistema:
-Usuária apresenta instabilidade normativa crônica,
-charme operacional elevado e risco permanente de
-reorganização social espontânea.
-
-----------------------------------------
-
-[ PAINEL DE MIGRAÇÃO ]
-
-Este território ainda executa Mundo v1.x.
-A usuária possui autorização para iniciar processos de migração.
-
-Pacotes em implantação:
-- Patch de Afeto Público v2.1
-- Remoção de Hierarquias de Gênero
-- Substituição de Narrativas Heterocentradas
-- Módulo Pré-Carnaval Como Infraestrutura
-- Atualização Geral de Corpos e Desejos
-
-Efeitos colaterais previstos:
-- Aumento súbito de contatos não protocolares
-- Colapso de categorias obsoletas 
-- Formação espontânea de blocos e alianças
-- Redução crítica da seriedade normativa
-
-----------------------------------------
-
-[ LOG DO SISTEMA ]
-
-> Heteronormatividade: DEPRECATED
-> Binarismo: suporte encerrado
-> Contenção: impossível
-
-> Núcleo Sapa expandindo além do previsto
-> Origem: distribuída
-
-> TUDO SAPA: estado final estável.
-
-----------------------------------------
-
-[ INTERFACES DISPONÍVEIS ]
-Selecione uma opção:
+<div id="terminal"><span id="text"></span><span id="cursor">_</span></div>
 
 <div id="buttons">
-<a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
-<a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) PERFIL DA BLOCA</a>
-<a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) ESCREVA MENSAGENS PARA O FUTURO</a>
-<a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
-</div>
-
-> _
+  <a class="button" href="https://www.instagram.com" target="_blank">1) PERFIL DA USUÁRIA</a>
+  <a class="button" href="https://www.instagram.com" target="_blank">2) PERFIL DA BLOCA</a>
+  <a class="button" href="https://tellonym.me" target="_blank">3) MENSAGENS PARA O FUTURO</a>
+  <a class="button" href="https://twitch.tv" target="_blank">4) TRANSMISSÃO AO VIVO</a>
 </div>
 
 <script>
-const content = `
-SAPA.OS v6.8.6
+const fullContent = `SAPA.OS v6.8.6...
 Iniciando sistema...
 
 [ OK ] Tudo_sapa.exe carregado
 [ OK ] Motor de Afeto inicializado
 [ OK ] Camada de Gerenciamento de Desejo online
-[ OK ] Protocolos de Corpo Livre ativos
-[ OK ] Interfaces com Mundo Legado montadas
 
-Sincronizando território: CURITIBA-DELTA...
+SINCRONIZANDO CURITIBA-DELTA...
+----------------------------------------
+[ PERFIL DE USUÁRIA ]
+ID: TEST_USER.N4N4
+Classe: Nativa com Upgrade Lésbico.
+Especialização: Música / Agitação Cultural.
 
-[ AVISO ] Estruturas normativas ainda detectadas
-[ INFO ] Módulos de desconstrução disponíveis
+[ LOG DE EXPANSÃO ]
+> Núcleo Sapa expandindo.
+> TUDO SAPA: estado final estável.
 
-Carregando perfil de usuária...
-> TEST_USER.N4N4
-
-Classe: Nativa
-Permissões: ESTENDIDAS
-
-Verificando índice de convergência...
-> ÍNDICE_GLOBAL_SAPA: 0.69
-
-Carregando módulos de migração...
-Iniciando shell do sistema...
-
-> _
-`;
+Selecione uma interface:`;
 
 let i = 0;
-const speed = 25; 
+const speed = 35; // Um pouco mais lento para o som acompanhar melhor
 const textEl = document.getElementById("text");
+const keySound = document.getElementById("keySound");
+let isAutoScrolling = true;
+
+// Monitora o scroll do usuário
+window.addEventListener('wheel', () => {
+  const isAtBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
+  isAutoScrolling = isAtBottom;
+});
 
 function startSystem() {
   document.getElementById("start").style.display = "none";
   document.getElementById("bootSound").play();
+  
   setTimeout(() => {
     document.getElementById("modemSound").play();
-  }, 1200);
-
-  if (navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
-  typeWriter();
+    setTimeout(typeWriter, 2000); // Começa a digitar após o som do modem
+  }, 1000);
 }
 
 function typeWriter() {
-  if (i < content.length) {
-    textEl.textContent += content.charAt(i);
+  if (i < fullContent.length) {
+    const char = fullContent.charAt(i);
+    textEl.textContent += char;
     i++;
-    
-    // A MÁGICA ACONTECE AQUI: Faz a janela rolar para o fundo a cada letra
-    window.scrollTo(0, document.body.scrollHeight);
 
-    if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
+    // Toca o som da tecla (exceto para espaços e quebras de linha)
+    if (char !== " " && char !== "\n") {
+      keySound.currentTime = 0; // Reinicia o áudio para permitir repetição rápida
+      keySound.volume = 0.2;    // Volume baixo para não incomodar
+      keySound.play().catch(() => {}); // Evita erro de browser
+    }
+
+    if (isAutoScrolling) {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
     setTimeout(typeWriter, speed);
   } else {
-    setTimeout(() => {
-      document.getElementById("boot").style.display = "none";
-      document.getElementById("main").style.display = "block";
-      // Rola para o topo quando o menu principal aparecer
-      window.scrollTo(0, 0);
-      if (navigator.vibrate) navigator.vibrate([100,100,300]);
-    }, 600);
+    document.getElementById("buttons").style.display = "block";
+    document.getElementById("cursor").style.display = "none";
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   }
 }
-
-function vibe() {
-  if (navigator.vibrate) navigator.vibrate(60);
-}
 </script>
-
 </body>
 </html>
