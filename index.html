@@ -22,12 +22,12 @@
   <button id="btnInit">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<!-- Áudios públicos e diretos -->
-<audio id="bootSound" src="https://cdn.pixabay.com/audio/2021/09/07/audio_61e2bb99ed.mp3"></audio>
-<audio id="modemSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0288be5286.mp3"></audio>
-<audio id="keySound1" src="https://cdn.pixabay.com/audio/2021/09/14/audio_b9a0c9c84e.mp3"></audio>
-<audio id="keySound2" src="https://cdn.pixabay.com/audio/2021/09/14/audio_c1e0c7f8c1.mp3"></audio>
-<audio id="keySound3" src="https://cdn.pixabay.com/audio/2021/09/14/audio_3f2d6c8f1a.mp3"></audio>
+<!-- Áudios -->
+<audio id="bootSound" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/07/audio_61e2bb99ed.mp3"></audio>
+<audio id="modemSound" preload="auto" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0288be5286.mp3" loop></audio>
+<audio id="keySound1" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/14/audio_b9a0c9c84e.mp3"></audio>
+<audio id="keySound2" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/14/audio_c1e0c7f8c1.mp3"></audio>
+<audio id="keySound3" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/14/audio_3f2d6c8f1a.mp3"></audio>
 
 <div id="terminal"><span id="text"></span><span id="cursor">&nbsp;</span></div>
 
@@ -55,7 +55,7 @@ Especialização: Música / Agitação Cultural.
 
 [ LOG DE EXPANSÃO ]
 > Núcleo Sapa expandindo.
-> TUDO SAPA: estado final estável.
+> TUDO SAPA: estado final está estável.
 
 Selecione uma interface:`;
 
@@ -73,16 +73,18 @@ const keySounds = [
 document.getElementById("btnInit").addEventListener("click", function() {
   document.getElementById("start").style.display = "none";
 
-  // Tocar boot
+  // Tocar boot imediatamente
   bootSound.currentTime = 0;
   bootSound.volume = 0.6;
-  bootSound.play().then(() => {
-    // Após boot tocar modem e iniciar digitação
-    modemSound.currentTime = 0;
-    modemSound.volume = 0.2;
-    modemSound.play();
-    typeWriter();
-  }).catch(e => console.log("Erro ao tocar áudio:", e));
+  bootSound.play().catch(e => console.log("Erro boot:", e));
+
+  // Tocar modem em loop baixo
+  modemSound.currentTime = 0;
+  modemSound.volume = 0.2;
+  modemSound.play().catch(e => console.log("Erro modem:", e));
+
+  // Inicia digitação imediatamente
+  typeWriter();
 });
 
 function typeWriter() {
@@ -93,7 +95,8 @@ function typeWriter() {
 
     // Som de tecla aleatório
     if (char !== " " && char !== "\n") {
-      const randomKey = keySounds[Math.floor(Math.random() * keySounds.length)].cloneNode();
+      const randomKey = keySounds[Math.floor(Math.random() * keySounds.length)];
+      randomKey.currentTime = 0; // reset para tocar novamente
       randomKey.volume = 0.12;
       randomKey.play().catch(e => {});
     }
