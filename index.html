@@ -6,37 +6,14 @@
 <title>SAPA.OS Terminal</title>
 
 <style>
-html, body {
+body {
   margin: 0;
-  padding: 0;
-  height: 100%;
   background: black;
   color: #00ff66;
   font-family: "Courier New", monospace;
-  font-size: 18px;
-  line-height: 1.4;
-  overflow-y: scroll; /* força a barra visível */
-}
-
-/* Barra de rolagem sempre visível e verde */
-body::-webkit-scrollbar {
-  width: 10px;
-}
-
-body::-webkit-scrollbar-track {
-  background: black;
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: #00ff66;
-  border-radius: 5px;
-  border: 2px solid black;
-}
-
-/* Firefox */
-body {
-  scrollbar-width: thin;
-  scrollbar-color: #00ff66 black;
+  font-size: 14px; /* Fonte menor para caber tudo */
+  line-height: 1.2; /* Linhas mais próximas */
+  overflow: hidden; /* Remove rolagem */
 }
 
 #start {
@@ -50,8 +27,8 @@ body {
 }
 
 #start button {
-  font-size: 20px;
-  padding: 20px 26px;
+  font-size: 18px;
+  padding: 15px 20px;
   background: #00ff66;
   border: none;
   font-weight: bold;
@@ -60,13 +37,13 @@ body {
 }
 
 #terminal {
-  padding: 20px;
+  padding: 15px;
   white-space: pre-wrap;
 }
 
 #cursor {
   display: inline-block;
-  width: 10px;
+  width: 8px;
   animation: blink 1s infinite;
 }
 
@@ -76,15 +53,15 @@ body {
 }
 
 .button {
-  display: block;
-  margin: 10px 0;
-  padding: 10px;
+  display: inline-block;
+  margin: 5px 5px 0 0;
+  padding: 6px 10px;
   border: 1px solid #00ff66;
   color: #00ff66;
   background: black;
   text-decoration: none;
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .button:active {
@@ -102,11 +79,11 @@ body {
 <div id="terminal">
   <span id="text"></span><span id="cursor">_</span>
 
-  <div id="buttons" style="display:none;">
+  <div id="buttons" style="display:none; margin-top:10px;">
     <a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
     <a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) PERFIL DA BLOCA</a>
-    <a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) ESCREVA MENSAGENS PARA O FUTURO</a>
-    <a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
+    <a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) MENSAGENS FUTURAS</a>
+    <a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO</a>
   </div>
 </div>
 
@@ -148,7 +125,7 @@ const speed = 15;
 const textEl = document.getElementById("text");
 const buttons = document.getElementById("buttons");
 
-// Web Audio
+// Sons simples via Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playBootSound() {
@@ -181,7 +158,6 @@ function startSystem() {
   typeWriter();
 }
 
-// Digitação caractere a caractere sem rolagem automática
 function typeWriter() {
   if (i < content.length) {
     textEl.textContent += content.charAt(i);
