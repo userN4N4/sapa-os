@@ -11,9 +11,9 @@ body {
   background: black;
   color: #00ff66;
   font-family: "Courier New", monospace;
-  font-size: 14px; /* Fonte menor para caber tudo */
-  line-height: 1.2; /* Linhas mais próximas */
-  overflow: hidden; /* Remove rolagem */
+  font-size: 14px;
+  line-height: 1.2;
+  overflow: hidden; /* Sem rolagem */
 }
 
 #start {
@@ -52,10 +52,16 @@ body {
   50% { opacity: 0; }
 }
 
+#buttons {
+  display: none;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
 .button {
-  display: inline-block;
-  margin: 5px 5px 0 0;
-  padding: 6px 10px;
+  padding: 6px;
   border: 1px solid #00ff66;
   color: #00ff66;
   background: black;
@@ -79,7 +85,7 @@ body {
 <div id="terminal">
   <span id="text"></span><span id="cursor">_</span>
 
-  <div id="buttons" style="display:none; margin-top:10px;">
+  <div id="buttons">
     <a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
     <a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) PERFIL DA BLOCA</a>
     <a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) MENSAGENS FUTURAS</a>
@@ -164,7 +170,7 @@ function typeWriter() {
     i++;
     setTimeout(typeWriter, speed);
   } else {
-    buttons.style.display = "block";
+    buttons.style.display = "grid"; // Mostra os botões em grade
   }
 }
 
