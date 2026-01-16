@@ -254,10 +254,17 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Auto-scroll instantâneo até o fim da página
-    window.scrollTo(0, document.body.scrollHeight);
+    // Rolagem automática: acompanha o texto até os botões
+    const buttons = document.getElementById("buttons");
+    if (buttons) {
+      const rect = buttons.getBoundingClientRect();
+      if (rect.bottom > window.innerHeight) {
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    }
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
+
     setTimeout(typeWriter, speed);
   } else {
     setTimeout(() => {
