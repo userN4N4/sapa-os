@@ -271,8 +271,11 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Auto-scroll suave só se o usuário não rolou manualmente
-    if (!userScrolled) window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    // Auto-scroll apenas se o final do boot estiver saindo da tela
+    const bootRect = document.getElementById("boot").getBoundingClientRect();
+    if (!userScrolled && bootRect.bottom > window.innerHeight) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
 
