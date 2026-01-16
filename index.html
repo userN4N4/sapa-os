@@ -3,17 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAPA.OS Terminal</title>
+<title>SAPA.OS Terminal Compact</title>
 
 <style>
-body {
+html, body {
   margin: 0;
+  padding: 0;
   background: black;
   color: #00ff66;
   font-family: "Courier New", monospace;
-  font-size: 14px;
-  line-height: 1.2;
-  overflow: hidden; /* Sem rolagem */
+  font-size: 13px; /* Fonte ainda menor */
+  line-height: 1.1; /* Linhas bem próximas */
+  overflow-y: auto; /* Permite scroll manual */
+}
+
+/* Barra de rolagem discreta */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+body::-webkit-scrollbar-track {
+  background: black;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #00ff66;
+  border-radius: 4px;
+  border: 1px solid black;
+}
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff66 black;
 }
 
 #start {
@@ -27,8 +45,8 @@ body {
 }
 
 #start button {
-  font-size: 18px;
-  padding: 15px 20px;
+  font-size: 16px;
+  padding: 12px 18px;
   background: #00ff66;
   border: none;
   font-weight: bold;
@@ -37,7 +55,7 @@ body {
 }
 
 #terminal {
-  padding: 15px;
+  padding: 10px;
   white-space: pre-wrap;
 }
 
@@ -52,22 +70,23 @@ body {
   50% { opacity: 0; }
 }
 
+/* Botões compactos em linha única */
 #buttons {
   display: none;
-  margin-top: 10px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .button {
-  padding: 6px;
+  padding: 4px 6px;
   border: 1px solid #00ff66;
   color: #00ff66;
   background: black;
   text-decoration: none;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .button:active {
@@ -131,7 +150,7 @@ const speed = 15;
 const textEl = document.getElementById("text");
 const buttons = document.getElementById("buttons");
 
-// Sons simples via Web Audio
+// Sons via Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playBootSound() {
@@ -170,7 +189,7 @@ function typeWriter() {
     i++;
     setTimeout(typeWriter, speed);
   } else {
-    buttons.style.display = "grid"; // Mostra os botões em grade
+    buttons.style.display = "flex"; // Mostra os botões em linha
   }
 }
 
