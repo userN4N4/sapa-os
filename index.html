@@ -16,6 +16,21 @@ body {
   overflow-y: scroll; /* Barra de rolagem visível */
 }
 
+/* Barra de rolagem personalizada */
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: black;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #00ff66; 
+  border-radius: 5px;
+  border: 2px solid black; 
+}
+
 #start {
   position: fixed;
   inset: 0;
@@ -61,7 +76,7 @@ body {
   background: black;
   text-decoration: none;
   text-align: center;
-  font-size: 16px; /* padronizado */
+  font-size: 16px;
 }
 
 .button:active {
@@ -158,7 +173,7 @@ function startSystem() {
   typeWriter();
 }
 
-// Digitação caractere a caractere sem rolagem automática
+// Digitação caractere a caractere, sem rolagem automática
 function typeWriter() {
   if (i < content.length) {
     textEl.textContent += content.charAt(i);
