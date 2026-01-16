@@ -11,7 +11,8 @@ body {
   background: black;
   color: #00ff66;
   font-family: "Courier New", monospace;
-  font-size: 20px;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 #start {
@@ -25,8 +26,8 @@ body {
 }
 
 #start button {
-  font-size: 22px;
-  padding: 22px 28px;
+  font-size: 20px;
+  padding: 20px 26px;
   background: #00ff66;
   border: none;
   font-weight: bold;
@@ -41,7 +42,7 @@ body {
 
 #cursor {
   display: inline-block;
-  width: 12px;
+  width: 10px;
   animation: blink 1s infinite;
 }
 
@@ -56,30 +57,30 @@ body {
   padding: 20px;
   max-width: 900px;
   margin: 0 auto;
+  white-space: pre-wrap;
 }
 
 hr {
   border: none;
-  border-top: 2px solid #00ff66;
-  margin: 30px 0;
+  border-top: 1px solid #00ff66;
+  margin: 20px 0;
 }
 
 .button {
   display: block;
-  margin: 20px 0;
-  padding: 22px;
-  border: 2px solid #00ff66;
-  color: black;
-  background: #00ff66;
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #00ff66;
+  color: #00ff66;
+  background: black;
   text-decoration: none;
   text-align: center;
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 18px;
 }
 
-.button:hover {
-  background: black;
-  color: #00ff66;
+.button:active {
+  background: #00ff66;
+  color: black;
 }
 </style>
 </head>
@@ -90,22 +91,22 @@ hr {
 </div>
 
 <audio id="bootSound" preload="auto">
-  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg">
+</audio>
+
+<audio id="modemSound" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/ambiences/modem_dialing.ogg">
 </audio>
 
 <div id="boot"><span id="text"></span><span id="cursor">_</span></div>
 
 <div id="main">
-
-<pre>
 SAPA.OS v9.3.1
 NODE: CURITIBA-DELTA
 SYNC: PARTIAL
 MODE: MIGRATION
---------------------------------
-</pre>
+----------------------------------------
 
-<pre>
 [ STATUS DO SISTEMA ]
 
 [ OK ] Kernel Sapa carregado
@@ -118,11 +119,9 @@ MODE: MIGRATION
 
 Índice global de convergência: 69%
 Destino: TUDO SAPA
-</pre>
 
-<hr>
+----------------------------------------
 
-<pre>
 [ PERFIL DE USUÁRIA ]
 
 ID: TEST_USER.N4N4
@@ -132,28 +131,37 @@ Estado: Operando acima dos limites recomendados
 
 Permissões:
 - Leitura e escrita em camadas históricas
-- Instalação de pacotes simbólicos
+- Instalação de pacotes simbólicos e comportamentais
 - Ativação de zonas temporárias de realidade alternativa
 - Propagação memética de alta contaminação afetiva
 
 Nota do sistema:
-Usuária apresenta instabilidade normativa crônica.
-</pre>
+Usuária apresenta instabilidade normativa crônica,
+charme operacional elevado e risco permanente de
+reorganização social espontânea.
 
-<hr>
+----------------------------------------
 
-<pre>
-[ PAINEL DE INTERFACES ]
-</pre>
+[ PAINEL DE MIGRAÇÃO ]
 
-<a class="button" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
-<a class="button" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) BLOCO</a>
-<a class="button" href="https://tellonym.me/test_user.n4n4" target="_blank">3) MENSAGENS PARA O FUTURO</a>
-<a class="button" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO</a>
+Este território ainda executa Mundo v1.x.
+A usuária possui autorização para iniciar processos de migração.
 
-<hr>
+Pacotes em implantação:
+- Patch de Afeto Público v2.1
+- Remoção de Hierarquias de Gênero
+- Substituição de Narrativas Heterocentradas
+- Módulo Festa Como Infraestrutura
+- Atualização Geral de Corpos e Desejos
 
-<pre>
+Efeitos colaterais previstos:
+- Aumento súbito de contatos não protocolares
+- Colapso de categorias obsoletas
+- Formação espontânea de blocos e alianças
+- Redução crítica da seriedade normativa
+
+----------------------------------------
+
 [ LOG DO SISTEMA ]
 
 > Heteronormatividade: DEPRECATED
@@ -163,10 +171,25 @@ Usuária apresenta instabilidade normativa crônica.
 > Núcleo Sapa expandindo além do previsto
 > Origem: distribuída
 
-> TUDO SAPA não é objetivo
-> É estado final estável
-</pre>
+> Mundo antigo ainda responde...
+> Mas já não é mais a instância principal.
 
+> TUDO SAPA não é objetivo.
+> É apenas o estado final estável.
+
+----------------------------------------
+
+[ INTERFACES DISPONÍVEIS ]
+Selecione uma opção:
+
+<div id="buttons">
+<a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
+<a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) BLOCO</a>
+<a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) MENSAGENS PARA O FUTURO</a>
+<a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO</a>
+</div>
+
+> _
 </div>
 
 <script>
@@ -194,19 +217,24 @@ Permissions: EXTENDED
 Checking convergence status...
 > GLOBAL_SAPA_INDEX: 0.69
 
-Entering live system...
+Loading migration modules...
+Starting system shell...
 
 > _
 `;
 
 let i = 0;
-const speed = 20;
+const speed = 45; // MAIS LENTO
 const textEl = document.getElementById("text");
 
 function startSystem() {
   document.getElementById("start").style.display = "none";
   document.getElementById("bootSound").play();
-  if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 400]);
+  setTimeout(() => {
+    document.getElementById("modemSound").play();
+  }, 1200);
+
+  if (navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
   typeWriter();
 }
 
@@ -214,7 +242,7 @@ function typeWriter() {
   if (i < content.length) {
     textEl.textContent += content.charAt(i);
     i++;
-    if (i % 40 === 0 && navigator.vibrate) navigator.vibrate(30);
+    if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
     setTimeout(typeWriter, speed);
   } else {
     setTimeout(() => {
@@ -223,6 +251,10 @@ function typeWriter() {
       if (navigator.vibrate) navigator.vibrate([100,100,300]);
     }, 800);
   }
+}
+
+function vibe() {
+  if (navigator.vibrate) navigator.vibrate(60);
 }
 </script>
 
