@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAPA.OS Terminal Compact</title>
+<title>SAPA.OS Terminal Clássico</title>
 
 <style>
 html, body {
@@ -12,9 +12,9 @@ html, body {
   background: black;
   color: #00ff66;
   font-family: "Courier New", monospace;
-  font-size: 15px; /* aumentei 1px */
-  line-height: 1.1;
-  overflow-y: auto; /* Scroll manual visível */
+  font-size: 15px;
+  line-height: 1.15;
+  overflow-y: auto;
 }
 
 /* Barra de rolagem discreta */
@@ -46,7 +46,7 @@ body {
 
 #start button {
   font-size: 16px;
-  padding: 12px 18px;
+  padding: 12px 20px;
   background: #00ff66;
   border: none;
   font-weight: bold;
@@ -61,7 +61,9 @@ body {
 
 #cursor {
   display: inline-block;
-  width: 8px;
+  width: 10px;
+  background: #00ff66;
+  margin-left: 2px;
   animation: blink 1s infinite;
 }
 
@@ -70,23 +72,23 @@ body {
   50% { opacity: 0; }
 }
 
-/* Botões compactos em linha, com numeração visível */
+/* Botões estilo plugin, um pouco maiores */
 #buttons {
   display: none;
-  margin-top: 2px; /* espaço mínimo */
+  margin-top: 0px; /* remove espaço entre texto e botões */
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
 }
 
 .button {
-  padding: 4px 6px;
+  padding: 6px 10px;
   border: 1px solid #00ff66;
   color: #00ff66;
   background: black;
   text-decoration: none;
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .button:active {
@@ -94,10 +96,9 @@ body {
   color: black;
 }
 
-/* Texto explicativo dos botões */
 #buttons-text {
   display: none;
-  margin-top: 2px; 
+  margin-top: 0px; /* remove espaço */
   font-size: 13px;
 }
 </style>
@@ -109,11 +110,10 @@ body {
 </div>
 
 <div id="terminal">
-  <span id="text"></span><span id="cursor">_</span>
+  <span id="text"></span><span id="cursor">█</span>
 
-  <!-- Texto explicativo para indicar que o usuário deve clicar nos botões -->
   <div id="buttons-text">
-    Selecione as interfaces disponíveis abaixo para continuar:
+    Selecione os “plugins” disponíveis abaixo para continuar:
   </div>
 
   <div id="buttons">
@@ -202,7 +202,6 @@ function typeWriter() {
     i++;
     setTimeout(typeWriter, speed);
   } else {
-    // Mostra o texto explicativo e os botões
     buttonsText.style.display = "block";
     buttons.style.display = "flex";
   }
