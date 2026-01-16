@@ -6,17 +6,19 @@
 <title>SAPA.OS Terminal</title>
 
 <style>
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
   background: black;
   color: #00ff66;
   font-family: "Courier New", monospace;
   font-size: 18px;
   line-height: 1.4;
-  overflow-y: scroll; /* Barra de rolagem visível */
+  overflow-y: scroll; /* força a barra visível */
 }
 
-/* Barra de rolagem personalizada */
+/* Barra de rolagem sempre visível e verde */
 body::-webkit-scrollbar {
   width: 10px;
 }
@@ -26,9 +28,15 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #00ff66; 
+  background-color: #00ff66;
   border-radius: 5px;
-  border: 2px solid black; 
+  border: 2px solid black;
+}
+
+/* Firefox */
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff66 black;
 }
 
 #start {
@@ -173,7 +181,7 @@ function startSystem() {
   typeWriter();
 }
 
-// Digitação caractere a caractere, sem rolagem automática
+// Digitação caractere a caractere sem rolagem automática
 function typeWriter() {
   if (i < content.length) {
     textEl.textContent += content.charAt(i);
