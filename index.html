@@ -70,16 +70,18 @@ function playBootSound() {
   osc.stop(audioCtx.currentTime + 0.25);
 }
 
-// Função som de modem
-function playModemSound(duration = 1.5) {
+// Função som robótico curto (modem futurista)
+function playRobotSound() {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
-  osc.type = 'sawtooth';
-  osc.frequency.setValueAtTime(220 + Math.random() * 100, audioCtx.currentTime);
+
+  osc.type = 'triangle'; // mais suave que sawtooth
+  osc.frequency.setValueAtTime(600 + Math.random() * 200, audioCtx.currentTime); // variação de pitch
   gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+
   osc.connect(gain).connect(audioCtx.destination);
   osc.start();
-  osc.stop(audioCtx.currentTime + duration);
+  osc.stop(audioCtx.currentTime + 0.12); // duração curta
 }
 
 document.getElementById("btnInit").addEventListener("click", function() {
@@ -88,10 +90,8 @@ document.getElementById("btnInit").addEventListener("click", function() {
   // Som de boot
   playBootSound();
 
-  // Pequeno delay e inicia modem
-  setTimeout(() => {
-    playModemSound(); // som inicial do modem
-  }, 300);
+  // Pequeno delay e som robótico inicial
+  setTimeout(() => playRobotSound(), 300);
 
   // Inicia digitação visual
   typeWriter();
@@ -104,14 +104,11 @@ function typeWriter() {
     i++;
     window.scrollTo(0, document.body.scrollHeight);
 
-    // Digitação "humana"
-    let delay = 30 + Math.random() * 60;
-    if (char === '.' || char === '\n') delay += 150 + Math.random() * 150;
+    // Digitação padronizada em 20ms
+    setTimeout(typeWriter, 20);
 
-    // Durante digitação, podemos tocar modem chiando brevemente
-    if (Math.random() < 0.02) playModemSound(0.05);
-
-    setTimeout(typeWriter, delay);
+    // Ocasionalmente tocar som robótico curtinho para efeito
+    if (Math.random() < 0.02) playRobotSound();
   } else {
     document.getElementById("buttons").style.display = "block";
     document.getElementById("cursor").style.display = "none";
