@@ -224,10 +224,6 @@ Iniciando shell do sistema...
 let i = 0;
 const speed = 15; // velocidade de digitação
 const textEl = document.getElementById("text");
-let userScrolled = false;
-
-// Detecta rolagem manual do usuário
-window.addEventListener('scroll', () => { userScrolled = true; });
 
 // Inicializa Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -274,15 +270,20 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Auto-scroll apenas quando texto chegou no final da página
-    if (!userScrolled && (window.innerHeight + window.scrollY) < (document.body.scrollHeight - 10)) {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    // Auto-scroll até os botões
+    const buttons = document.getElementById("buttons");
+    if (buttons) {
+      const buttonsPos = buttons.getBoundingClientRect().top + window.scrollY;
+      if ((window.scrollY + window.innerHeight) < buttonsPos) {
+        window.scrollTo({ top: window.scrollY + 20, behavior: 'smooth' });
+      }
     }
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
 
     setTimeout(typeWriter, speed);
   } else {
+    // Finaliza boot e mostra interface principal
     setTimeout(() => {
       document.getElementById("boot").style.display = "none";
       document.getElementById("main").style.display = "block";
