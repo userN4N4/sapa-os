@@ -101,23 +101,25 @@ hr {
 <div id="boot"><span id="text"></span><span id="cursor">_</span></div>
 
 <div id="main">
-SAPA.OS v9.3.1
-NODE: CURITIBA-DELTA
-SYNC: PARTIAL
-MODE: MIGRATION
+SAPA.OS v6.8.6
+LOCALIZAÇÃO: CURITIBA-DELTA
+SINCRONIZAÇÃO: PARCIAL
+MODO: MIGRAÇÃO
+IDIOMA: [Sincronizando línguas] AJUSTE DE UMIDADE NECESSÁRIO
+
 ----------------------------------------
 
-[ STATUS DO SISTEMA ]
+[ STATUS DO SISTEMA SAPA.OS]
 
-[ OK ] Kernel Sapa carregado
-[ OK ] Motor de Afeto operacional
+[ OK ] Tudo_sapa.exe carregado
+[ OK ] Update de Firmware: Expansão do Vocabulário Sensorial
 [ OK ] Protocolos de Corpo Livre ativos
 [ OK ] Módulo de Safadeza Sapatônica em execução
 [ OK ] Interfaces com Mundo Legado em modo compatibilidade
 [ OK ] Processo de extinção da heteronormatividade em curso
 [ OK ] Subsistema binário marcado para descontinuação
 
-Índice global de convergência: 69%
+Índice global de convergência: 69% (loading...)
 Destino: TUDO SAPA
 
 ----------------------------------------
@@ -125,10 +127,11 @@ Destino: TUDO SAPA
 [ PERFIL DE USUÁRIA ]
 
 ID: TEST_USER.N4N4
-Classe: Nativa
-Especialização: Campo / Música / Agitação Cultural
-Estado: Operando acima dos limites recomendados
-
+Classe: Nativa com Upgrade Lésbico.
+Especialização: Música / Agitação Cultural / Lubrificação e Manuseio de Fluidos / Mapeamento Térmico Corporal / Testagem de Vibração e Sucção
+Estado: Operando acima dos limites recomendados. Risco de superaquecimento.
+Overclocking em Zonas de Alta Sensibilidade.
+  
 Permissões:
 - Leitura e escrita em camadas históricas
 - Instalação de pacotes simbólicos e comportamentais
@@ -151,12 +154,12 @@ Pacotes em implantação:
 - Patch de Afeto Público v2.1
 - Remoção de Hierarquias de Gênero
 - Substituição de Narrativas Heterocentradas
-- Módulo Festa Como Infraestrutura
+- Módulo Pré-Carnaval Como Infraestrutura
 - Atualização Geral de Corpos e Desejos
 
 Efeitos colaterais previstos:
 - Aumento súbito de contatos não protocolares
-- Colapso de categorias obsoletas
+- Colapso de categorias obsoletas 
 - Formação espontânea de blocos e alianças
 - Redução crítica da seriedade normativa
 
@@ -171,11 +174,7 @@ Efeitos colaterais previstos:
 > Núcleo Sapa expandindo além do previsto
 > Origem: distribuída
 
-> Mundo antigo ainda responde...
-> Mas já não é mais a instância principal.
-
-> TUDO SAPA não é objetivo.
-> É apenas o estado final estável.
+> TUDO SAPA: estado final estável.
 
 ----------------------------------------
 
@@ -185,8 +184,8 @@ Selecione uma opção:
 <div id="buttons">
 <a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
 <a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) PERFIL DA BLOCA</a>
-<a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) MENSAGENS PARA O FUTURO</a>
-<a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO</a>
+<a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) ESCREVA MENSAGENS PARA O FUTURO</a>
+<a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
 </div>
 
 > _
@@ -194,37 +193,37 @@ Selecione uma opção:
 
 <script>
 const content = `
-SAPA.OS v9.3.1
-Booting...
+SAPA.OS v6.8.6
+Iniciando sistema...
 
-[ OK ] Kernel Sapa loaded
-[ OK ] Affect Engine initialized
-[ OK ] Desire Management Layer online
-[ OK ] Body Freedom Protocols active
-[ OK ] Legacy World Interfaces mounted
+[ OK ] Tudo_sapa.exe carregado
+[ OK ] Motor de Afeto inicializado
+[ OK ] Camada de Gerenciamento de Desejo online
+[ OK ] Protocolos de Corpo Livre ativos
+[ OK ] Interfaces com Mundo Legado montadas
 
-Syncing territory: CURITIBA-DELTA...
+Sincronizando território: CURITIBA-DELTA...
 
-[ WARNING ] Normative structures still detected
-[ INFO ] Deconstruction modules available
+[ AVISO ] Estruturas normativas ainda detectadas
+[ INFO ] Módulos de desconstrução disponíveis
 
-Loading user profile...
+Carregando perfil de usuária...
 > TEST_USER.N4N4
 
-Class: Native
-Permissions: EXTENDED
+Classe: Nativa
+Permissões: ESTENDIDAS
 
-Checking convergence status...
-> GLOBAL_SAPA_INDEX: 0.69
+Verificando índice de convergência...
+> ÍNDICE_GLOBAL_SAPA: 0.69
 
-Loading migration modules...
-Starting system shell...
+Carregando módulos de migração...
+Iniciando shell do sistema...
 
 > _
 `;
 
 let i = 0;
-const speed = 25; // MAIS LENTO
+const speed = 20; // VELOCIDADE DO BOOT
 const textEl = document.getElementById("text");
 
 function startSystem() {
@@ -249,7 +248,7 @@ function typeWriter() {
       document.getElementById("boot").style.display = "none";
       document.getElementById("main").style.display = "block";
       if (navigator.vibrate) navigator.vibrate([100,100,300]);
-    }, 800);
+    }, 600);
   }
 }
 
