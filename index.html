@@ -216,6 +216,7 @@ Iniciando shell do sistema...
 let i = 0;
 const speed = 15;
 const textEl = document.getElementById("text");
+const scrollAnchor = document.getElementById("scrollAnchor");
 
 // Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -255,11 +256,10 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Rolagem automática só quando o texto ultrapassa a viewport
-    const boot = document.getElementById("boot");
-    const buttons = document.getElementById("buttons");
-    if (boot.scrollHeight > window.innerHeight) {
-      window.scrollTo(0, boot.scrollHeight);
+    // Rolagem automática: apenas quando o scrollAnchor passa da tela
+    const anchorRect = scrollAnchor.getBoundingClientRect();
+    if (anchorRect.bottom > window.innerHeight) {
+      window.scrollTo({ top: window.scrollY + (anchorRect.bottom - window.innerHeight), behavior: 'smooth' });
     }
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
