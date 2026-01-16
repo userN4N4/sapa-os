@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAPA.OS</title>
+
 <style>
 body {
   margin: 0;
@@ -11,6 +12,24 @@ body {
   color: #00ff66;
   font-family: "Courier New", monospace;
   font-size: 20px;
+}
+
+#start {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#start button {
+  font-size: 24px;
+  padding: 20px 30px;
+  background: #00ff66;
+  border: none;
+  font-weight: bold;
 }
 
 #boot {
@@ -62,13 +81,36 @@ hr {
   background: black;
   color: #00ff66;
 }
+
+#frog {
+  display: none;
+  text-align: center;
+  font-size: 80px;
+  margin: 30px 0;
+  animation: glitch 0.15s infinite alternate;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(2px,-2px); }
+}
 </style>
 </head>
 <body>
 
+<div id="start">
+  <button onclick="startSystem()">TOCAR SISTEMA</button>
+</div>
+
+<audio id="bootSound" preload="auto">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
 <div id="boot"><span id="text"></span><span id="cursor">_</span></div>
 
 <div id="main">
+
+<div id="frog">🐸</div>
 
 <pre>
 SAPA.OS v9.3.1
@@ -89,10 +131,7 @@ MODE: MIGRATION
 [ OK ] Subsistema binário marcado para descontinuação<br><br>
 
 Índice global de convergência:<br>
-<b>69% — Rumo a TUDO SAPA</b><br><br>
-
-Observação: a partir de 60% o sistema passa a apresentar
-manifestações espontâneas de desejo, festa e reorganização social.
+<b>69% — Rumo a TUDO SAPA</b>
 </p>
 
 <hr>
@@ -103,47 +142,25 @@ manifestações espontâneas de desejo, festa e reorganização social.
 ID: TEST_USER.N4N4<br>
 Classe: Nativa<br>
 Especialização: Campo / Música / Agitação Cultural<br>
-Estado atual: Operando acima dos limites recomendados<br><br>
-
-Nota do sistema: usuária apresenta alta taxa de desvio,
-charme operacional e instabilidade normativa.
+Estado atual: Operando acima dos limites recomendados
 </p>
 
 <hr>
 
-<p>
-<b>INTERFACES DISPONÍVEIS NESTA REGIÃO</b>
-</p>
+<p><b>INTERFACES DISPONÍVEIS</b></p>
 
-<a class="button" href="https://www.instagram.com/canta_nana?igsh=Ynp6bWZ5Zm85Nmx1&utm_source=qr" target="_blank">
-1) PERFIL PÚBLICO DA USUÁRIA
-</a>
-
-<a class="button" href="https://www.instagram.com/saidoarmarioemedeibem?igsh=OWh4enFmYzQ5aW13" target="_blank">
-2) BLOCO SAÍ DO ARMÁRIO E ME DEI BEM
-</a>
-
-<a class="button" href="https://tellonym.me/test_user.n4n4" target="_blank">
-3) ENVIAR MENSAGEM PARA O FUTURO
-</a>
-
-<a class="button" href="https://twitch.tv/canta_nana" target="_blank">
-4) TRANSMISSÃO AO VIVO — VISÃO DA USUÁRIA
-</a>
+<a class="button" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
+<a class="button" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) BLOCO</a>
+<a class="button" href="https://tellonym.me/test_user.n4n4" target="_blank">3) MENSAGENS PARA O FUTURO</a>
+<a class="button" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO</a>
 
 <hr>
 
 <pre>
-LOG DO SISTEMA:
-
 > Heteronormatividade: DEPRECATED
 > Binarismo: suporte encerrado
-
-> Núcleo Sapa fora de controle
 > Contenção: impossível
-
-> TUDO SAPA não é um objetivo.
-> É apenas o estado estável final.
+> TUDO SAPA é estado estável
 </pre>
 
 </div>
@@ -170,24 +187,33 @@ Entering live system...
 `;
 
 let i = 0;
-const speed = 18;
+const speed = 20;
 const textEl = document.getElementById("text");
+
+function startSystem() {
+  document.getElementById("start").style.display = "none";
+  document.getElementById("bootSound").play();
+  if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 400]);
+  typeWriter();
+}
 
 function typeWriter() {
   if (i < content.length) {
     textEl.textContent += content.charAt(i);
     i++;
+    if (i % 40 === 0 && navigator.vibrate) navigator.vibrate(30);
     setTimeout(typeWriter, speed);
   } else {
     setTimeout(() => {
       document.getElementById("boot").style.display = "none";
       document.getElementById("main").style.display = "block";
+      const frog = document.getElementById("frog");
+      frog.style.display = "block";
+      if (navigator.vibrate) navigator.vibrate([100,100,300]);
     }, 800);
   }
 }
-
-typeWriter();
 </script>
 
 </body>
-</html>
+</html> 
