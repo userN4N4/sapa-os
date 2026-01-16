@@ -61,12 +61,6 @@ body {
   white-space: pre-wrap;
 }
 
-hr {
-  border: none;
-  border-top: 1px solid #00ff66;
-  margin: 20px 0;
-}
-
 .button {
   display: block;
   margin: 16px 0;
@@ -184,8 +178,6 @@ Selecione uma opção:
 <a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) ESCREVA MENSAGENS PARA O FUTURO</a>
 <a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
 </div>
-
-> _
 </div>
 
 <script>
@@ -222,13 +214,13 @@ Iniciando shell do sistema...
 `;
 
 let i = 0;
-const speed = 15; // velocidade de digitação
+const speed = 15;
 const textEl = document.getElementById("text");
+let scrollActive = true;
 
 // Inicializa Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-// Som de boot
 function playBootSound() {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
@@ -240,7 +232,6 @@ function playBootSound() {
   osc.stop(audioCtx.currentTime + 0.25);
 }
 
-// Som robótico curto
 function playRobotSound() {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
@@ -254,13 +245,8 @@ function playRobotSound() {
 
 function startSystem() {
   document.getElementById("start").style.display = "none";
-
-  // Som de boot
   playBootSound();
-
-  // Pequeno delay e som robótico inicial
   setTimeout(() => playRobotSound(), 300);
-
   if (navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
   typeWriter();
 }
@@ -270,20 +256,21 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Auto-scroll até os botões
+    // Auto-scroll enquanto scrollAnchor não chegou
+    const anchor = document.getElementById("scrollAnchor");
     const buttons = document.getElementById("buttons");
-    if (buttons) {
-      const buttonsPos = buttons.getBoundingClientRect().top + window.scrollY;
-      if ((window.scrollY + window.innerHeight) < buttonsPos) {
+    if (scrollActive) {
+      const anchorRect = anchor.getBoundingClientRect();
+      if (anchorRect.bottom > window.innerHeight && buttons) {
         window.scrollTo({ top: window.scrollY + 20, behavior: 'smooth' });
+      } else {
+        scrollActive = false; // parar scroll automático
       }
     }
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
-
     setTimeout(typeWriter, speed);
   } else {
-    // Finaliza boot e mostra interface principal
     setTimeout(() => {
       document.getElementById("boot").style.display = "none";
       document.getElementById("main").style.display = "block";
