@@ -216,7 +216,7 @@ let i = 0;
 const speed = 15;
 const textEl = document.getElementById("text");
 
-// Inicializa Web Audio
+// Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 function playBootSound() {
@@ -254,17 +254,10 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Auto-scroll enquanto os botões não estão totalmente visíveis
-    const buttons = document.getElementById("buttons");
-    if (buttons) {
-      const rect = buttons.getBoundingClientRect();
-      if (rect.bottom > window.innerHeight) {
-        window.scrollBy({ top: 20, behavior: 'smooth' });
-      }
-    }
+    // Auto-scroll instantâneo até o fim da página
+    window.scrollTo(0, document.body.scrollHeight);
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
-
     setTimeout(typeWriter, speed);
   } else {
     setTimeout(() => {
