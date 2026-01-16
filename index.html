@@ -5,27 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SAPA.OS</title>
 <style>
-  body {
-    margin: 0; background: black; color: #00ff66;
-    font-family: "Courier New", monospace; font-size: 18px; line-height: 1.4;
-  }
-  #start {
-    position: fixed; inset: 0; background: black;
-    display: flex; align-items: center; justify-content: center; z-index: 9999;
-  }
-  #start button {
-    font-size: 20px; padding: 20px 26px; background: #00ff66;
-    border: none; font-weight: bold; text-transform: uppercase; cursor: pointer;
-  }
+  body { margin: 0; background: black; color: #00ff66; font-family: "Courier New", monospace; font-size: 18px; line-height: 1.4; overflow-x: hidden; }
+  #start { position: fixed; inset: 0; background: black; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+  #start button { font-size: 20px; padding: 20px 26px; background: #00ff66; border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; }
   #terminal { padding: 20px; white-space: pre-wrap; word-wrap: break-word; padding-bottom: 50px; }
-  #cursor { display: inline-block; width: 10px; animation: blink 1s infinite; }
+  #cursor { display: inline-block; width: 10px; background: #00ff66; animation: blink 1s infinite; }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
   #buttons { display: none; max-width: 900px; margin: 0 auto; padding: 0 20px 50px 20px; }
-  .button {
-    display: block; margin: 16px 0; padding: 16px;
-    border: 1px solid #00ff66; color: #00ff66; background: black;
-    text-decoration: none; text-align: center; font-size: 18px;
-  }
+  .button { display: block; margin: 16px 0; padding: 16px; border: 1px solid #00ff66; color: #00ff66; background: black; text-decoration: none; text-align: center; font-size: 18px; }
   .button:active { background: #00ff66; color: black; }
 </style>
 </head>
@@ -35,12 +22,12 @@
   <button id="btnInit">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<!-- Audios com links diretos funcionais -->
-<audio id="bootSound" src="https://raw.githubusercontent.com"></audio>
-<audio id="modemSound" src="https://www.soundboard.com"></audio>
+<!-- Links de áudio diretos e testados -->
+<audio id="bootSound" src="https://cdn.pixabay.com"></audio>
+<audio id="modemSound" src="https://cdn.pixabay.com"></audio>
 <audio id="keySound" src="https://cdn.pixabay.com"></audio>
 
-<div id="terminal"><span id="text"></span><span id="cursor">_</span></div>
+<div id="terminal"><span id="text"></span><span id="cursor">&nbsp;</span></div>
 
 <div id="buttons">
   <a class="button" href="https://www.instagram.com" target="_blank">1) PERFIL DA USUÁRIA</a>
@@ -71,7 +58,7 @@ Especialização: Música / Agitação Cultural.
 Selecione uma interface:`;
 
 let i = 0;
-const speed = 45; 
+const speed = 40; 
 const textEl = document.getElementById("text");
 const bootSound = document.getElementById("bootSound");
 const modemSound = document.getElementById("modemSound");
@@ -80,18 +67,21 @@ const keySound = document.getElementById("keySound");
 document.getElementById("btnInit").addEventListener("click", function() {
   document.getElementById("start").style.display = "none";
   
-  // Volume e Play inicial
-  bootSound.volume = 0.5;
+  // HACK: Tocar e pausar imediatamente libera o áudio no navegador
+  [bootSound, modemSound, keySound].forEach(s => {
+    s.play().then(() => s.pause()).catch(e => console.log("Erro de permissão"));
+  });
+
+  // Sequência de áudio
+  bootSound.currentTime = 0;
+  bootSound.volume = 0.6;
   bootSound.play();
 
-  // O modem começa logo após o boot
   setTimeout(() => {
-    modemSound.volume = 0.3;
+    modemSound.volume = 0.2;
     modemSound.play();
-  }, 500);
-
-  // Começa a digitar após um pequeno delay do modem
-  setTimeout(typeWriter, 2000); 
+    typeWriter(); // Inicia a digitação junto com o modem
+  }, 1200);
 });
 
 function typeWriter() {
@@ -100,11 +90,11 @@ function typeWriter() {
     textEl.textContent += char;
     i++;
 
-    // Som de tecla (apenas para letras e números)
+    // Som de tecla realista
     if (char !== " " && char !== "\n") {
-      let soundClone = keySound.cloneNode();
-      soundClone.volume = 0.1;
-      soundClone.play().catch(() => {});
+      let k = keySound.cloneNode();
+      k.volume = 0.12;
+      k.play();
     }
 
     window.scrollTo(0, document.body.scrollHeight);
