@@ -22,12 +22,9 @@
   <button id="btnInit">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<!-- Áudios -->
-<audio id="bootSound" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/07/audio_61e2bb99ed.mp3"></audio>
-<audio id="modemSound" preload="auto" src="https://cdn.pixabay.com/audio/2022/03/15/audio_0288be5286.mp3" loop></audio>
-<audio id="keySound1" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/14/audio_b9a0c9c84e.mp3"></audio>
-<audio id="keySound2" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/14/audio_c1e0c7f8c1.mp3"></audio>
-<audio id="keySound3" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/14/audio_3f2d6c8f1a.mp3"></audio>
+<!-- Som de boot e modem -->
+<audio id="bootSound" preload="auto" src="https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3"></audio>
+<audio id="modemSound" preload="auto" src="https://interactive-examples.mdn.mozilla.net/media/examples/sea.mp3" loop></audio>
 
 <div id="terminal"><span id="text"></span><span id="cursor">&nbsp;</span></div>
 
@@ -60,15 +57,9 @@ Especialização: Música / Agitação Cultural.
 Selecione uma interface:`;
 
 let i = 0;
-const speed = 40; 
 const textEl = document.getElementById("text");
 const bootSound = document.getElementById("bootSound");
 const modemSound = document.getElementById("modemSound");
-const keySounds = [
-  document.getElementById("keySound1"),
-  document.getElementById("keySound2"),
-  document.getElementById("keySound3")
-];
 
 document.getElementById("btnInit").addEventListener("click", function() {
   document.getElementById("start").style.display = "none";
@@ -78,12 +69,12 @@ document.getElementById("btnInit").addEventListener("click", function() {
   bootSound.volume = 0.6;
   bootSound.play().catch(e => console.log("Erro boot:", e));
 
-  // Tocar modem em loop baixo
+  // Tocar modem em loop
   modemSound.currentTime = 0;
   modemSound.volume = 0.2;
   modemSound.play().catch(e => console.log("Erro modem:", e));
 
-  // Inicia digitação imediatamente
+  // Inicia digitação visual futurista
   typeWriter();
 });
 
@@ -92,17 +83,15 @@ function typeWriter() {
     const char = fullContent.charAt(i);
     textEl.textContent += char;
     i++;
-
-    // Som de tecla aleatório
-    if (char !== " " && char !== "\n") {
-      const randomKey = keySounds[Math.floor(Math.random() * keySounds.length)];
-      randomKey.currentTime = 0; // reset para tocar novamente
-      randomKey.volume = 0.12;
-      randomKey.play().catch(e => {});
-    }
-
     window.scrollTo(0, document.body.scrollHeight);
-    setTimeout(typeWriter, speed);
+
+    // Varia a velocidade para simular digitação humana
+    let delay = 30 + Math.random() * 60; // 30ms a 90ms por caractere
+
+    // Pequena pausa extra após ponto ou quebra de linha
+    if (char === '.' || char === '\n') delay += 150 + Math.random() * 150;
+
+    setTimeout(typeWriter, delay);
   } else {
     document.getElementById("buttons").style.display = "block";
     document.getElementById("cursor").style.display = "none";
