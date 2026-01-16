@@ -274,9 +274,8 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Auto-scroll apenas quando scrollAnchor não está visível
-    const anchor = document.getElementById("scrollAnchor").getBoundingClientRect();
-    if (!userScrolled && anchor.top > window.innerHeight) {
+    // Auto-scroll apenas quando texto chegou no final da página
+    if (!userScrolled && (window.innerHeight + window.scrollY) < (document.body.scrollHeight - 10)) {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 
