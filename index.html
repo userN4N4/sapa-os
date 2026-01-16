@@ -22,9 +22,6 @@
   <button id="btnInit">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<!-- Som de boot apenas -->
-<audio id="bootSound" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/07/audio_61e2bb99ed.mp3"></audio>
-
 <div id="terminal"><span id="text"></span><span id="cursor">&nbsp;</span></div>
 
 <div id="buttons">
@@ -57,15 +54,44 @@ Selecione uma interface:`;
 
 let i = 0;
 const textEl = document.getElementById("text");
-const bootSound = document.getElementById("bootSound");
+
+// Inicializa Web Audio
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+// Função som de boot
+function playBootSound() {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.25);
+}
+
+// Função som de modem
+function playModemSound(duration = 1.5) {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(220 + Math.random() * 100, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
 
 document.getElementById("btnInit").addEventListener("click", function() {
   document.getElementById("start").style.display = "none";
 
-  // Boot toca imediatamente
-  bootSound.currentTime = 0;
-  bootSound.volume = 0.6;
-  bootSound.play().catch(e => console.log("Erro ao tocar boot:", e));
+  // Som de boot
+  playBootSound();
+
+  // Pequeno delay e inicia modem
+  setTimeout(() => {
+    playModemSound(); // som inicial do modem
+  }, 300);
 
   // Inicia digitação visual
   typeWriter();
@@ -78,9 +104,12 @@ function typeWriter() {
     i++;
     window.scrollTo(0, document.body.scrollHeight);
 
-    // Digitação "humana": velocidade aleatória
-    let delay = 30 + Math.random() * 60; // 30ms a 90ms por caractere
-    if (char === '.' || char === '\n') delay += 150 + Math.random() * 150; // pausa extra após ponto ou quebra de linha
+    // Digitação "humana"
+    let delay = 30 + Math.random() * 60;
+    if (char === '.' || char === '\n') delay += 150 + Math.random() * 150;
+
+    // Durante digitação, podemos tocar modem chiando brevemente
+    if (Math.random() < 0.02) playModemSound(0.05);
 
     setTimeout(typeWriter, delay);
   } else {
