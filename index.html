@@ -87,6 +87,7 @@ body {
 
 <div id="boot">
   <span id="text"></span><span id="cursor">_</span>
+  <span id="scrollAnchor"></span>
 </div>
 
 <div id="main">
@@ -254,13 +255,11 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Rolagem automática: acompanha o texto até os botões
+    // Rolagem automática só quando o texto ultrapassa a viewport
+    const boot = document.getElementById("boot");
     const buttons = document.getElementById("buttons");
-    if (buttons) {
-      const rect = buttons.getBoundingClientRect();
-      if (rect.bottom > window.innerHeight) {
-        window.scrollTo(0, document.body.scrollHeight);
-      }
+    if (boot.scrollHeight > window.innerHeight) {
+      window.scrollTo(0, boot.scrollHeight);
     }
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
