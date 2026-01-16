@@ -73,7 +73,7 @@ body {
 /* Botões compactos em linha, com numeração visível */
 #buttons {
   display: none;
-  margin-top: 8px;
+  margin-top: 4px; /* Reduzi o espaço */
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -93,6 +93,13 @@ body {
   background: #00ff66;
   color: black;
 }
+
+/* Texto explicativo dos botões */
+#buttons-text {
+  display: none;
+  margin-top: 2px; /* Reduzi o espaço */
+  font-size: 13px;
+}
 </style>
 </head>
 <body>
@@ -105,48 +112,39 @@ body {
   <span id="text"></span><span id="cursor">_</span>
 
   <!-- Texto explicativo para indicar que o usuário deve clicar nos botões -->
-  <div id="buttons-text" style="display:none; margin-top:6px; font-size:13px;">
+  <div id="buttons-text">
     Selecione as interfaces disponíveis abaixo para continuar:
   </div>
 
   <div id="buttons">
-    <a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1. PERFIL DA USUÁRIA</a>
-    <a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2. PERFIL DA BLOCA</a>
-    <a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3. ESCREVA MENSAGENS PARA O FUTURO</a>
-    <a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4. TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
+    <a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
+    <a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) PERFIL DA BLOCA</a>
+    <a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) ESCREVA MENSAGENS PARA O FUTURO</a>
+    <a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
   </div>
 </div>
 
 <script>
 const content = `SAPA.OS v6.8.6
 Iniciando sistema...
-
 [ OK ] Tudo_sapa.exe carregado
 [ OK ] Motor de Afeto inicializado
 [ OK ] Camada de Gerenciamento de Desejo online
 [ OK ] Protocolos de Corpo Livre ativos
 [ OK ] Interfaces com Mundo Legado montadas
-
 Sincronizando território: CURITIBA-DELTA...
-
 [ AVISO ] Estruturas normativas ainda detectadas
 [ INFO ] Módulos de desconstrução disponíveis
-
 Carregando perfil de usuária...
 > TEST_USER.N4N4
-
 Classe: Nativa
 Permissões: ESTENDIDAS
-
 Especialização:
 Música / Agitação Cultural / Lubrificação e Manuseio de Fluidos / Mapeamento Térmico / Testagem de Vibrações e Sucções
-
 Verificando índice de convergência...
 > ÍNDICE_GLOBAL_SAPA: 0.69
-
 Carregando módulos de migração...
 Iniciando shell do sistema...
-
 > _
 `;
 
