@@ -91,7 +91,10 @@ hr {
   <button onclick="startSystem()">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<div id="boot"><span id="text"></span><span id="cursor">_</span></div>
+<div id="boot">
+  <span id="text"></span><span id="cursor">_</span>
+  <span id="scrollAnchor"></span>
+</div>
 
 <div id="main">
 SAPA.OS v6.8.6
@@ -271,9 +274,9 @@ function typeWriter() {
     textEl.textContent += content.charAt(i);
     i++;
 
-    // Auto-scroll apenas se o final do boot estiver saindo da tela
-    const bootRect = document.getElementById("boot").getBoundingClientRect();
-    if (!userScrolled && bootRect.bottom > window.innerHeight) {
+    // Auto-scroll apenas quando scrollAnchor não está visível
+    const anchor = document.getElementById("scrollAnchor").getBoundingClientRect();
+    if (!userScrolled && anchor.top > window.innerHeight) {
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     }
 
