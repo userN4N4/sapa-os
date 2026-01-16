@@ -12,7 +12,7 @@ html, body {
   background: black;
   color: #00ff66;
   font-family: "Courier New", monospace;
-  font-size: 14px; /* Fonte um pouco maior */
+  font-size: 15px; /* aumentei 1px */
   line-height: 1.1;
   overflow-y: auto; /* Scroll manual visível */
 }
@@ -73,7 +73,7 @@ body {
 /* Botões compactos em linha, com numeração visível */
 #buttons {
   display: none;
-  margin-top: 4px; /* Reduzi o espaço */
+  margin-top: 2px; /* espaço mínimo */
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -97,7 +97,7 @@ body {
 /* Texto explicativo dos botões */
 #buttons-text {
   display: none;
-  margin-top: 2px; /* Reduzi o espaço */
+  margin-top: 2px; 
   font-size: 13px;
 }
 </style>
@@ -126,24 +126,33 @@ body {
 
 <script>
 const content = `SAPA.OS v6.8.6
+
 Iniciando sistema...
+
 [ OK ] Tudo_sapa.exe carregado
 [ OK ] Motor de Afeto inicializado
 [ OK ] Camada de Gerenciamento de Desejo online
 [ OK ] Protocolos de Corpo Livre ativos
 [ OK ] Interfaces com Mundo Legado montadas
+
 Sincronizando território: CURITIBA-DELTA...
+
 [ AVISO ] Estruturas normativas ainda detectadas
 [ INFO ] Módulos de desconstrução disponíveis
+
 Carregando perfil de usuária...
 > TEST_USER.N4N4
 Classe: Lésbica Nativa
 Permissões: ESTENDIDAS
+
 Especialização:
 Música / Agitação Cultural / Lubrificação e Manuseio de Fluidos / Mapeamento Térmico / Testagem de Vibrações e Sucções
+
 Verificando índice de convergência...
 > ÍNDICE_GLOBAL_SAPA: 0.69
+
 Carregando módulos de migração...
+
 Iniciando shell do sistema...
 > _
 `;
