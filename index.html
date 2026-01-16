@@ -22,9 +22,8 @@
   <button id="btnInit">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<!-- Som de boot e modem -->
-<audio id="bootSound" preload="auto" src="https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3"></audio>
-<audio id="modemSound" preload="auto" src="https://interactive-examples.mdn.mozilla.net/media/examples/sea.mp3" loop></audio>
+<!-- Som de boot apenas -->
+<audio id="bootSound" preload="auto" src="https://cdn.pixabay.com/audio/2021/09/07/audio_61e2bb99ed.mp3"></audio>
 
 <div id="terminal"><span id="text"></span><span id="cursor">&nbsp;</span></div>
 
@@ -59,22 +58,16 @@ Selecione uma interface:`;
 let i = 0;
 const textEl = document.getElementById("text");
 const bootSound = document.getElementById("bootSound");
-const modemSound = document.getElementById("modemSound");
 
 document.getElementById("btnInit").addEventListener("click", function() {
   document.getElementById("start").style.display = "none";
 
-  // Tocar boot imediatamente
+  // Boot toca imediatamente
   bootSound.currentTime = 0;
   bootSound.volume = 0.6;
-  bootSound.play().catch(e => console.log("Erro boot:", e));
+  bootSound.play().catch(e => console.log("Erro ao tocar boot:", e));
 
-  // Tocar modem em loop
-  modemSound.currentTime = 0;
-  modemSound.volume = 0.2;
-  modemSound.play().catch(e => console.log("Erro modem:", e));
-
-  // Inicia digitação visual futurista
+  // Inicia digitação visual
   typeWriter();
 });
 
@@ -85,11 +78,9 @@ function typeWriter() {
     i++;
     window.scrollTo(0, document.body.scrollHeight);
 
-    // Varia a velocidade para simular digitação humana
+    // Digitação "humana": velocidade aleatória
     let delay = 30 + Math.random() * 60; // 30ms a 90ms por caractere
-
-    // Pequena pausa extra após ponto ou quebra de linha
-    if (char === '.' || char === '\n') delay += 150 + Math.random() * 150;
+    if (char === '.' || char === '\n') delay += 150 + Math.random() * 150; // pausa extra após ponto ou quebra de linha
 
     setTimeout(typeWriter, delay);
   } else {
