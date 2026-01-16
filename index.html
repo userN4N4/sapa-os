@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAPA.OS Terminal Mecânico</title>
+<title>SAPA.OS Terminal</title>
 
 <style>
 body {
@@ -13,7 +13,7 @@ body {
   font-family: "Courier New", monospace;
   font-size: 18px;
   line-height: 1.4;
-  overflow-x: hidden;
+  overflow-y: scroll; /* Barra de rolagem visível */
 }
 
 #start {
@@ -54,14 +54,14 @@ body {
 
 .button {
   display: block;
-  margin: 16px 0;
-  padding: 16px;
+  margin: 10px 0;
+  padding: 10px;
   border: 1px solid #00ff66;
   color: #00ff66;
   background: black;
   text-decoration: none;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px; /* padronizado */
 }
 
 .button:active {
@@ -78,7 +78,6 @@ body {
 
 <div id="terminal">
   <span id="text"></span><span id="cursor">_</span>
-  <span id="scrollAnchor"></span>
 
   <div id="buttons" style="display:none;">
     <a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
@@ -124,7 +123,6 @@ Iniciando shell do sistema...
 let i = 0;
 const speed = 15;
 const textEl = document.getElementById("text");
-const scrollAnchor = document.getElementById("scrollAnchor");
 const buttons = document.getElementById("buttons");
 
 // Web Audio
@@ -160,32 +158,14 @@ function startSystem() {
   typeWriter();
 }
 
-// Função mecânica linha a linha
-let buffer = "";
+// Digitação caractere a caractere sem rolagem automática
 function typeWriter() {
   if (i < content.length) {
-    const char = content.charAt(i);
-    buffer += char;
+    textEl.textContent += content.charAt(i);
     i++;
-
-    // Quando encontrar quebra de linha, escreve toda a linha
-    if (char === "\n" || i === content.length) {
-      textEl.textContent += buffer;
-      buffer = "";
-
-      // Rolagem mecânica
-      const anchorRect = scrollAnchor.getBoundingClientRect();
-      if (anchorRect.bottom > window.innerHeight) {
-        window.scrollBy({ top: 24, behavior: 'smooth' }); // empurra 24px por linha
-      }
-    }
-
-    if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
     setTimeout(typeWriter, speed);
   } else {
-    // Exibe os botões no final
     buttons.style.display = "block";
-    buttons.scrollIntoView({ behavior: "smooth" });
   }
 }
 
