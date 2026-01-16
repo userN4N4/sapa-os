@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SAPA.OS</title>
+<title>SAPA.OS Terminal Mecânico</title>
 
 <style>
 body {
@@ -13,6 +13,7 @@ body {
   font-family: "Courier New", monospace;
   font-size: 18px;
   line-height: 1.4;
+  overflow-x: hidden;
 }
 
 #start {
@@ -35,10 +36,9 @@ body {
   cursor: pointer;
 }
 
-#boot {
+#terminal {
   padding: 20px;
   white-space: pre-wrap;
-  min-height: 100vh;
 }
 
 #cursor {
@@ -48,17 +48,8 @@ body {
 }
 
 @keyframes blink {
-  0% { opacity: 1; }
+  0%,100% { opacity: 1; }
   50% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-#main {
-  display: none;
-  padding: 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  white-space: pre-wrap;
 }
 
 .button {
@@ -85,99 +76,16 @@ body {
   <button onclick="startSystem()">INICIALIZAR PROTOCOLO SAPA</button>
 </div>
 
-<div id="boot">
+<div id="terminal">
   <span id="text"></span><span id="cursor">_</span>
   <span id="scrollAnchor"></span>
-</div>
 
-<div id="main">
-SAPA.OS v6.8.6
-LOCALIZAÇÃO: CURITIBA-DELTA
-SINCRONIZAÇÃO: PARCIAL
-MODO: MIGRAÇÃO
-IDIOMA: [Sincronizando línguas] AJUSTE DE UMIDADE NECESSÁRIO
-
-----------------------------------------
-
-[ STATUS DO SISTEMA SAPA.OS]
-
-[ OK ] Tudo_sapa.exe carregado
-[ OK ] Update de Firmware: Expansão do Vocabulário Sensorial
-[ OK ] Protocolos de Corpo Livre ativos
-[ OK ] Módulo de Safadeza Sapatônica em execução
-[ OK ] Interfaces com Mundo Legado em modo compatibilidade
-[ OK ] Processo de extinção da heteronormatividade em curso
-[ OK ] Subsistema binário marcado para descontinuação
-
-Índice global de convergência: 69% (loading...)
-Destino: TUDO SAPA
-
-----------------------------------------
-
-[ PERFIL DE USUÁRIA ]
-
-ID: TEST_USER.N4N4
-> Classe: Nativa com Upgrade Lésbico.
-> Especialização: 
-  Música / Agitação Cultural / Lubrificação e Manuseio de Fluidos / Mapeamento Térmico / Testagem de Vibrações e Sucções
-> Estado: Operando acima dos limites recomendados. Risco de superaquecimento.
-Overclocking em Zonas de Alta Sensibilidade.
-  
-> Permissões:
-- Leitura e escrita em camadas históricas
-- Instalação de pacotes simbólicos e comportamentais
-- Ativação de zonas temporárias de realidade alternativa
-- Propagação memética de alta contaminação afetiva
-
-> Nota do sistema:
-Usuária apresenta instabilidade normativa crônica,
-charme operacional elevado e risco permanente de
-reorganização social espontânea.
-
-----------------------------------------
-
-[ PAINEL DE MIGRAÇÃO ]
-
-Este território ainda executa Mundo v1.x.
-A usuária possui autorização para iniciar processos de migração.
-
-Pacotes em implantação:
-- Patch de Afeto Público v2.1
-- Remoção de Hierarquias de Gênero
-- Substituição de Narrativas Heterocentradas
-- Módulo Pré-Carnaval Como Infraestrutura
-- Atualização Geral de Corpos e Desejos
-
-Efeitos colaterais previstos:
-- Aumento súbito de contatos não protocolares
-- Colapso de categorias obsoletas 
-- Formação espontânea de blocos e alianças
-- Redução crítica da seriedade normativa
-
-----------------------------------------
-
-[ LOG DO SISTEMA ]
-
-> Heteronormatividade: DEPRECATED
-> Binarismo: suporte encerrado
-> Contenção: impossível
-
-> Núcleo Sapa expandindo além do previsto
-> Origem: distribuída
-
-> TUDO SAPA: estado final estável.
-
-----------------------------------------
-
-[ INTERFACES DISPONÍVEIS ]
-Selecione uma opção:
-
-<div id="buttons">
-<a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
-<a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) PERFIL DA BLOCA</a>
-<a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) ESCREVA MENSAGENS PARA O FUTURO</a>
-<a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
-</div>
+  <div id="buttons" style="display:none;">
+    <a class="button" onclick="vibe()" href="https://www.instagram.com/canta_nana" target="_blank">1) PERFIL DA USUÁRIA</a>
+    <a class="button" onclick="vibe()" href="https://www.instagram.com/saidoarmarioemedeibem" target="_blank">2) PERFIL DA BLOCA</a>
+    <a class="button" onclick="vibe()" href="https://tellonym.me/test_user.n4n4" target="_blank">3) ESCREVA MENSAGENS PARA O FUTURO</a>
+    <a class="button" onclick="vibe()" href="https://twitch.tv/canta_nana" target="_blank">4) TRANSMISSÃO AO VIVO - VISUALIZAR CÂMERA DA USUÁRIA</a>
+  </div>
 </div>
 
 <script>
@@ -217,6 +125,7 @@ let i = 0;
 const speed = 15;
 const textEl = document.getElementById("text");
 const scrollAnchor = document.getElementById("scrollAnchor");
+const buttons = document.getElementById("buttons");
 
 // Web Audio
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -251,26 +160,32 @@ function startSystem() {
   typeWriter();
 }
 
+// Função mecânica linha a linha
+let buffer = "";
 function typeWriter() {
   if (i < content.length) {
-    textEl.textContent += content.charAt(i);
+    const char = content.charAt(i);
+    buffer += char;
     i++;
 
-    // Rolagem automática: apenas quando o scrollAnchor passa da tela
-    const anchorRect = scrollAnchor.getBoundingClientRect();
-    if (anchorRect.bottom > window.innerHeight) {
-      window.scrollTo({ top: window.scrollY + (anchorRect.bottom - window.innerHeight), behavior: 'smooth' });
+    // Quando encontrar quebra de linha, escreve toda a linha
+    if (char === "\n" || i === content.length) {
+      textEl.textContent += buffer;
+      buffer = "";
+
+      // Rolagem mecânica
+      const anchorRect = scrollAnchor.getBoundingClientRect();
+      if (anchorRect.bottom > window.innerHeight) {
+        window.scrollBy({ top: 24, behavior: 'smooth' }); // empurra 24px por linha
+      }
     }
 
     if (i % 30 === 0 && navigator.vibrate) navigator.vibrate(20);
-
     setTimeout(typeWriter, speed);
   } else {
-    setTimeout(() => {
-      document.getElementById("boot").style.display = "none";
-      document.getElementById("main").style.display = "block";
-      if (navigator.vibrate) navigator.vibrate([100,100,300]);
-    }, 600);
+    // Exibe os botões no final
+    buttons.style.display = "block";
+    buttons.scrollIntoView({ behavior: "smooth" });
   }
 }
 
